@@ -1,5 +1,5 @@
 # AndroidNativePluginTest
-Android Native Plugin test for Unity
+Android Native Plugin test
 
 ## Requirements
 - macOS Catalina: 10.15.7
