@@ -44,7 +44,7 @@ public class NativeSpeechRecognizer extends UnityPlayerActivity {
         intent.putExtra(RecognizerIntent.EXTRA_ONLY_RETURN_LANGUAGE_PREFERENCE, lang);
         intent.putExtra(RecognizerIntent.EXTRA_RESULTS_PENDINGINTENT, lang);
 
-        final SpeechRecognizer recognizer = SpeechRecognizer.createSpeechRecognizer(context);
+        SpeechRecognizer recognizer = SpeechRecognizer.createSpeechRecognizer(context);
         recognizer.setRecognitionListener(new RecognitionListener()
         {
             @Override
@@ -151,7 +151,8 @@ public class NativeSpeechRecognizer extends UnityPlayerActivity {
             @Override
             public void onResults(Bundle results)
             {
-                Log.e(TAG, "onResults") ;
+                Log.e(TAG, "onResults");
+
                 ArrayList<String> list = results.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION);
                 String str = "";
                 for (String s : list)
@@ -163,7 +164,10 @@ public class NativeSpeechRecognizer extends UnityPlayerActivity {
                     str += s;
                 }
                 Log.e(TAG, str ) ;
+
                 UnitySendMessage(callbackTarget, callbackMethod, "onResults\n" + str);
+
+                Toast.makeText(context, str, Toast.LENGTH_LONG).show();
             }
 
             @Override
