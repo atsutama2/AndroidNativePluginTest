@@ -1,7 +1,7 @@
 # AndroidNativePluginTest
 Android Native Plugin test
 
-# Content
+## Content
 - Testing Native Alert Popups
 - Test SpeechRecognizer of native features
 
