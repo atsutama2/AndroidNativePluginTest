@@ -12,3 +12,4 @@ Android Native Plugin test
 
 ## Qiita
 - [[Unity] AndroidのSpeechRecognizer(音声テキスト認識)を実装する](https://qiita.com/atsutama/items/fd8dca4a1e621f4c855b)
+- [[Unity] Android NativePluginの実装の仕方](https://qiita.com/atsutama/items/28744b1a29e79184c3fc)
