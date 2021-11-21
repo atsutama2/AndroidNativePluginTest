@@ -11,4 +11,4 @@ Android Native Plugin test
 - Android Studio 4.0.1
 
 ## Qiita
-- [Unity] AndroidのSpeechRecognizer(音声テキスト認識)を実装する(https://qiita.com/atsutama/items/fd8dca4a1e621f4c855b)
+- [[Unity] AndroidのSpeechRecognizer(音声テキスト認識)を実装する](https://qiita.com/atsutama/items/fd8dca4a1e621f4c855b)
