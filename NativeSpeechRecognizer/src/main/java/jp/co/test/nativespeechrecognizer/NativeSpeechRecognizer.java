@@ -11,11 +11,9 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
-import com.unity3d.player.UnityPlayerActivity;
-
 import static com.unity3d.player.UnityPlayer.UnitySendMessage;
 
-public class NativeSpeechRecognizer extends UnityPlayerActivity {
+public class NativeSpeechRecognizer {
     private static final String TAG = "LOGTAG: ";
 
     public static void StartRecognizer(final Context context, final String callbackTarget, final String callbackMethod)
