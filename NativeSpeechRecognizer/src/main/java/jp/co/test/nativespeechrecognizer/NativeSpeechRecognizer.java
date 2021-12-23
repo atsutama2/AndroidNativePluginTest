@@ -7,9 +7,9 @@ import android.speech.RecognizerIntent;
 import android.speech.SpeechRecognizer;
 import android.content.Intent;
 import android.util.Log;
-import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
 import static com.unity3d.player.UnityPlayer.UnitySendMessage;
 
@@ -23,12 +23,14 @@ public class NativeSpeechRecognizer {
         intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
         intent.putExtra(RecognizerIntent.EXTRA_CALLING_PACKAGE, context.getPackageName());
 
-        // 言語設定
-        String lang = "ja-JP";
+        // 多言語設定
+        String lang = Locale.getDefault().toLanguageTag();
         intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, lang);
         intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_PREFERENCE, lang);
         intent.putExtra(RecognizerIntent.EXTRA_ONLY_RETURN_LANGUAGE_PREFERENCE, lang);
         intent.putExtra(RecognizerIntent.EXTRA_RESULTS_PENDINGINTENT, lang);
+
+        Log.d(TAG, lang);
 
         SpeechRecognizer recognizer = SpeechRecognizer.createSpeechRecognizer(context);
         recognizer.setRecognitionListener(new RecognitionListener()
@@ -81,12 +83,12 @@ public class NativeSpeechRecognizer {
                 switch (error) {
                     case SpeechRecognizer.ERROR_AUDIO:
                         // 音声データ保存失敗
-                        Log.d(TAG, "ERROR_AUDIO");
+                        Log.e(TAG, "ERROR_AUDIO");
                         errorMessage = "Audio recording error";
                         break;
                     case SpeechRecognizer.ERROR_CLIENT:
                         // Android端末内のエラー(その他)
-                        Log.d(TAG, "ERROR_CLIENT");
+                        Log.e(TAG, "ERROR_CLIENT");
                         errorMessage = "Client side error";
                         break;
                     case SpeechRecognizer.ERROR_INSUFFICIENT_PERMISSIONS:
@@ -135,7 +137,7 @@ public class NativeSpeechRecognizer {
             @Override
             public void onResults(Bundle results)
             {
-                Log.e(TAG, "onResults");
+                Log.d(TAG, "onResults");
 
                 ArrayList<String> list = results.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION);
                 String str = "";
@@ -147,7 +149,7 @@ public class NativeSpeechRecognizer {
                     }
                     str += s;
                 }
-                Log.e(TAG, str ) ;
+                Log.d(TAG, str ) ;
 
                 UnitySendMessage(callbackTarget, callbackResults, "onResults\n" + str);
             }
@@ -155,7 +157,7 @@ public class NativeSpeechRecognizer {
             @Override
             public void onPartialResults(Bundle partialResults)
             {
-                Log.e(TAG, "onPartialResults" ) ;
+                Log.d(TAG, "onPartialResults" ) ;
                 // On partial results.
                 UnitySendMessage(callbackTarget, callbackStateResults, "onPartialResults");
             }
@@ -163,7 +165,7 @@ public class NativeSpeechRecognizer {
             @Override
             public void onEvent(int eventType, Bundle params)
             {
-                Log.e(TAG, "onEvent" ) ;
+                Log.d(TAG, "onEvent" ) ;
                 // On event.
                 UnitySendMessage(callbackTarget, callbackStateResults, "onEvent");
             }
