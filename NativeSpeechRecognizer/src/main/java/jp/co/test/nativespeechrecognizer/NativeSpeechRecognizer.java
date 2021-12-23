@@ -16,7 +16,7 @@ import static com.unity3d.player.UnityPlayer.UnitySendMessage;
 public class NativeSpeechRecognizer {
     private static final String TAG = "LOGTAG: ";
 
-    public static void StartRecognizer(final Context context, final String callbackTarget, final String callbackResults, final String callbackButtonResults)
+    public static void StartRecognizer(final Context context, final String callbackTarget, final String callbackResults, final String callbackStateResults)
     {
 
         Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
@@ -38,7 +38,7 @@ public class NativeSpeechRecognizer {
             {
                 // 音声認識の準備ができた時呼び出される
                 Log.d(TAG, "onReadyForSpeech:" + bundle.toString());
-                UnitySendMessage(callbackTarget, callbackButtonResults, "onReadyForSpeech");
+                UnitySendMessage(callbackTarget, callbackStateResults, "onReadyForSpeech");
             }
 
             @Override
@@ -46,7 +46,7 @@ public class NativeSpeechRecognizer {
             {
                 // マイクに向かってしゃべり始めると呼び出される
                 Log.d(TAG, "onBeginningOfSpeech:");
-                UnitySendMessage(callbackTarget, callbackButtonResults, "OnBeginningOfSpheech");
+                UnitySendMessage(callbackTarget, callbackStateResults, "onBeginningOfSpeech");
             }
 
             @Override
@@ -62,7 +62,7 @@ public class NativeSpeechRecognizer {
             {
                 // On buffer received.
                 Log.d(TAG, "音声データ");
-                UnitySendMessage(callbackTarget, callbackButtonResults, "onBufferReceived");
+                UnitySendMessage(callbackTarget, callbackStateResults, "onBufferReceived");
             }
 
             @Override
@@ -70,7 +70,7 @@ public class NativeSpeechRecognizer {
             {
                 // On end of speech.
                 Log.d(TAG, "onEndOfSpeech");
-                UnitySendMessage(callbackTarget, callbackButtonResults, "onEndOfSpeech");
+                UnitySendMessage(callbackTarget, callbackStateResults, "onEndOfSpeech");
             }
 
             @Override
@@ -129,9 +129,7 @@ public class NativeSpeechRecognizer {
                         break;
                 }
                 // On error.
-                UnitySendMessage(callbackTarget, callbackButtonResults, "onError");
-
-                Toast.makeText(context, errorMessage, Toast.LENGTH_LONG).show();
+                UnitySendMessage(callbackTarget, callbackStateResults, errorMessage);
             }
 
             @Override
@@ -152,8 +150,6 @@ public class NativeSpeechRecognizer {
                 Log.e(TAG, str ) ;
 
                 UnitySendMessage(callbackTarget, callbackResults, "onResults\n" + str);
-
-                Toast.makeText(context, str, Toast.LENGTH_LONG).show();
             }
 
             @Override
@@ -161,7 +157,7 @@ public class NativeSpeechRecognizer {
             {
                 Log.e(TAG, "onPartialResults" ) ;
                 // On partial results.
-                UnitySendMessage(callbackTarget, callbackButtonResults, "onPartialResults");
+                UnitySendMessage(callbackTarget, callbackStateResults, "onPartialResults");
             }
 
             @Override
@@ -169,7 +165,7 @@ public class NativeSpeechRecognizer {
             {
                 Log.e(TAG, "onEvent" ) ;
                 // On event.
-                UnitySendMessage(callbackTarget, callbackButtonResults, "onEvent");
+                UnitySendMessage(callbackTarget, callbackStateResults, "onEvent");
             }
         });
 
